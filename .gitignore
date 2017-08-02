@@ -1,0 +1,5 @@
+test.py
+*.pyc
+.DS_Store
+*.crt
+*.pyc
