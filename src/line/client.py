@@ -9,12 +9,28 @@
 
 
 import requests
-
-from LineThrift.ttypes import MIDType, MediaType, ContentType, OpType
 from .login import LoginManager
 
+from LineThrift.ttypes import MIDType
+from LineThrift.ttypes imoirt MediaType
+from LineThrift.ttypes import ContentType
+from LineThrift.ttypes import OpType
+
 class LineClient(LoginManager):
-    """API Execute Class"""
+
+
+    """
+    本体です。
+    client = LineClient(email, password) # email login
+    or
+    client = LineClient(authToken="your authToken") # token login
+    or
+    client = LineClient() # URL login
+
+    authTokenの取得方法
+    ログインした状態で、
+    print(client.authToken)
+    """
 
     def __init__(self, mail=None, password=None, authToken=None):
 
@@ -248,73 +264,43 @@ class LineClient(LoginManager):
 
         return self._client_in.fetchOperations(revision, count)
 
-    # def fetchOps(self, 
-    #     localRev,  globalRev, 
-    #     individualRev, count=50):
-
-    #     return self._client_in.fetchOps(
-    #         localRev, count, globalRev, individualRev)
-
-
     """その他"""
 
     def getRecentMessages(self, id, count=1):
-        """Get recent messages from `id`"""
 
         return self._client.getRecentMessages(id, count)
 
     def sendMessage(self, message, seq=0):
-        """Send a message to `id`. `id` could be contact id or group id
 
-        :param message: `message` instance
-        """
         return self._client.sendMessage(seq, message)
 
     def issueChannelToken(self, channelId="1341209850"):
-        """issue myhome token"""
+
         return self._client_ch.issueChannelToken(channelId)
 
     def getMessageBoxCompactWrapUp(self, id):
-        try:
-            return self._client.getMessageBoxCompactWrapUp(id)
-        except:
-            return None
+
+        return self._client.getMessageBoxCompactWrapUp(id)
 
     def getMessageBoxCompactWrapUpList(self, start=1, count=50):
-        try:
-            return self._client.getMessageBoxCompactWrapUpList(start, count)
-        except Exception as e:
-            msg = e
-            self.raise_error(msg)
+
+        return self._client.getMessageBoxCompactWrapUpList(start, count)
 
     def getSettings(self):
-        try:
-            return self._client.getSettings()
-        except Exception as e:
-            msg = e
-            self.raise_error(msg)
+
+        return self._client.getSettings()
 
     def updateSettings(self, settings, seq=0):
-        try:
-            """update settings"""
-            return self._client.updateSettings(seq, settings)
-        except Exception as e:
-            msg = e
-            self.raise_error(msg)
+
+        return self._client.updateSettings(seq, settings)
 
     def getGroupCall(self, ChatMid):
-        try:
-            return self._client_cl.getGroupCall(ChatMid)
-        except Exception as e:
-            msg = e
-            self.raise_error(msg)
+
+        return self._client_cl.getGroupCall(ChatMid)
 
     def acquireGroupCallRoute(self, groupId, mediaType=MediaType.AUDIO):
-        try:
-            return self._client_cl.acquireGroupCallRoute(groupId, mediaType)
-        except Exception as e:
-            msg = e
-            self.raise_error(msg)
+
+        return self._client_cl.acquireGroupCallRoute(groupId, mediaType)
 
     def post_content(self, url, data=None, files=None):
         return self._session.post(url, headers=self.headers, data=data, files=files)

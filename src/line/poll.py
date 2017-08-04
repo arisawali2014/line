@@ -12,7 +12,11 @@ from LineThrift.ttypes import OpType
 
 
 class PollManager:
-    """Polling Manage class"""
+    """
+    Pollingをするためのクラス
+
+    poll = PollManager(client)
+    """
 
     def __init__(self, client):
 
@@ -29,12 +33,11 @@ class PollManager:
 
         self.functions[operationType] = functionName
 
-    def start(self):
+    def start(self, debug=False):
 
         try:
             operations = self.fetchOperation(self.client.revision)
-        except EOFError:
-            return
+
         except KeyboardInterrupt:
             exit()
         except:
@@ -42,7 +45,9 @@ class PollManager:
 
         for op in operations:
 
-            #print op
+            if debug:
+                print(op)
+
             if op.type in self.functions.keys():
                 self.functions[op.type](op)
 

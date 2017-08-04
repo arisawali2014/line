@@ -15,8 +15,8 @@ setup(
     author       = "Sh1ma",
     author_email = "in9lude@gmail.com",
     packages     = ["LineThrift", "line"],
-    package_dir  = {"": "src"}
-    install_requires=[
+    package_dir  = {"": "src"},
+    install_requires = [
     "requests",
     "rsa",
     "simplejson",

@@ -54,23 +54,6 @@ class LoginManager(object):
         self.headers = {}
         self.headers["User-Agent"] = "DESKTOP:MAC:10.12.4-UNKNOWN(5.1.1)"
         self.headers["X-Line-Application"] = "DESKTOPMAC\t5.1.1\tMAC\t10.12.4-UNKNOWN"
-
-        # if (mail and passwd) or authToken is None:
-        #     # url = self.getQrCode()
-        #     print "AUTH URL: line://au/q/{}".format(self.getQrCode())
-        #     self.urlLogin(self.vr)
-        #     self.startSession()
-
-        # if authToken:
-        #     self.authToken = self.headers['X-Line-Access'] = authToken
-
-        #     self.tokenLogin()
-
-        # if mail and passwd:
-        #     self.email = mail
-        #     self.passwd = passwd
-
-        #     self.mailLogin()
             
 
     def mailLogin(self):
@@ -90,14 +73,8 @@ class LoginManager(object):
 
         self._client = SessionManager(self.LOGIN_URL, self.headers).TalkSession(isopen=False)
 
-        # self.transport = THttpClient.THttpClient(self.LINE_self.LOGIN_URL)
-        # self.transport.setCustomHeaders(self.headers)
-
-        # self.protocol = TCompactProtocol.TCompactProtocol(self.transport)
-        # self._client   = TalkService.Client(self.protocol)
-
         try:
-            with open(self.email + ".crt",'r') as f:
+            with open(self.email + ".crt", 'r') as f:
                 self.certificate = f.read()
         except:
             self.certificate = ""
@@ -159,6 +136,7 @@ class LoginManager(object):
         return self._client
 
     def getQrCode(self):
+
         self._client  = SessionManager(self.LOGIN_URL, self.headers).TalkSession(isopen=False)
 
         msg = self._client.getAuthQrcode(True, self.com_name)
@@ -167,19 +145,6 @@ class LoginManager(object):
         return self.vr
 
     def urlLogin(self, vr):
-
-    #     self.transport = THttpClient.THttpClient(self.LINE_self.LOGIN_URL)
-    #     self.transport.setCustomHeaders(self.headers)
-    #
-    #     self.protocol = TCompactProtocol.TCompactProtocol(self.transport)
-    #     self._client  = TalkService.Client(self.protocol)
-    #
-    #     msg = self._client.getAuthQrcode(True, self.com_name)
-    #     self.url = ("line://au/q/" + msg.verifier)
-        # self._client  = SessionManager(self.LOGIN_URL, self.headers).TalkSession(isopen=False)
-
-        # msg = self._client.getAuthQrcode(True, self.com_name)
-        # vr = msg.verifier
 
         self.headers['X-Line-Access'] = vr
 
