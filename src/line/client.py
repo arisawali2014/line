@@ -12,7 +12,7 @@ import requests
 from .login import LoginManager
 
 from LineThrift.ttypes import MIDType
-from LineThrift.ttypes imoirt MediaType
+from LineThrift.ttypes import MediaType
 from LineThrift.ttypes import ContentType
 from LineThrift.ttypes import OpType
 
